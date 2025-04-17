@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    class TiVi {
+        constructor() {
+            this.channel = 1;
+            this.volume = 10;
+            this.isOn = false;
+        }
+
+        power(status) {
+            this.isOn = status;
+            document.write(`TiVi đã được ${status ? "bật" : "tắt"}.<br>`);
+        }
+
+        setChannel(channelNumber) {
+            if (this.isOn) {
+                this.channel = channelNumber;
+                document.write(`Đã chuyển đến kênh ${channelNumber}.<br>`);
+            } else {
+                document.write("Không thể chuyển kênh khi TiVi đang tắt.<br>");
+            }
+        }
+
+        changeVolume(amount) {
+            if (this.isOn) {
+                this.volume += amount;
+                if (this.volume < 0) this.volume = 0;
+                if (this.volume > 100) this.volume = 100;
+                document.write(`Âm lượng hiện tại: ${this.volume}<br>`);
+            } else {
+                document.write("Không thể thay đổi âm lượng khi TiVi đang tắt.<br>");
+            }
+        }
+    }
+    class Remote {
+        constructor(code) {
+            this.code = code;
+        }
+
+        changeChannel(tivi, newChannel) {
+            tivi.setChannel(newChannel);
+        }
+
+        adjustVolume(tivi, amount) {
+            tivi.changeVolume(amount);
+        }
+
+        powerToggle(tivi, status) {
+            tivi.power(status);
+        }
+    }
+
+    let sonyTV = new TiVi();
+    let remote1 = new Remote("RMX-001");
+
+
+    sonyTV.power(true);
+    sonyTV.setChannel(7);
+    remote1.changeChannel(sonyTV, 3);
+    remote1.adjustVolume(sonyTV, 2);
+    remote1.powerToggle(sonyTV, false); 
+
+</script>
+</html>
